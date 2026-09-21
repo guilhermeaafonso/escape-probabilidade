@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Escape Room: O Grande Investimento</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #0b132b;
+            color: #ffffff;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        .container {
+            background-color: #1c2541;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.5);
+            max-width: 600px;
+            width: 100%;
+            border-top: 5px solid #4ea8de;
+        }
+        h1, h2 { color: #4ea8de; text-align: center; }
+        .screen { display: none; }
+        .active { display: block; }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+            background-color: #3a506b;
+        }
+        th, td {
+            border: 1px solid #1c2541;
+            padding: 10px;
+            text-align: center;
+        }
+        th { background-color: #4ea8de; color: #1c2541; }
+        input[type="text"] {
+            width: 100%;
+            padding: 12px;
+            margin: 15px 0;
+            border-radius: 6px;
+            border: none;
+            font-size: 16px;
+            box-sizing: border-box;
+        }
+        button {
+            width: 100%;
+            background-color: #4ea8de;
+            color: #1c2541;
+            border: none;
+            padding: 12px;
+            font-size: 16px;
+            font-weight: bold;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        button:hover { background-color: #56cfe1; }
+        .error { color: #ff595e; font-weight: bold; margin-top: 10px; text-align: center; }
+        .highlight { background-color: #3a506b; padding: 10px; border-left: 4px solid #56cfe1; margin: 10px 0; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <!-- TELA INICIAL -->
+    <div id="intro" class="screen active">
+        <h1>🦈 O Grande Investimento</h1>
+        <p><strong>Narrativa:</strong> Vocês são diretores de um grande fundo de investimentos. Daqui a pouco vocês decidirão se investem 5 milhões de reais em uma startup. O analista-chefe trancou o relatório em um cofre digital para garantir que a equipe tome decisões baseadas em dados frios, e não na emoção! Decifrem as probabilidades condicionais para escapar com o negócio do século.</p>
+        <button onclick="nextScreen('fase1')">INICIAR AUDITORIA</button>
+    </div>
+
+    <!-- FASE 1 -->
+    <div id="fase1" class="screen">
+        <h2>Fase 1: Auditoria de Mercado</h2>
+        <p>A startup recebeu um relatório da consultoria. Analise a tabela de precisão do histórico de 1.000 startups:</p>
+        <table>
+            <tr><th>Métrica</th><th>Dá Lucro</th><th>Fale</th><th>Total</th></tr>
+            <tr><td>Previu Sucesso</td><td>140</td><td>60</td><td>200</td></tr>
+            <tr><td>Previu Falha</td><td>10</td><td>790</td><td>800</td></tr>
+            <tr><td>Total</td><td>150</td><td>850</td><td>1000</td></tr>
+        </table>
+        <p class="highlight"><strong>O Enigma:</strong> Sabendo que a previsão para a sua startup foi de <strong>Sucesso</strong>, qual é a probabilidade real dela dar lucro? Digite em fração simplificada (ex: 1/2).</p>
+        <input type="text" id="ans1" placeholder="Digite a fração ex: X/Y">
+        <button onclick="checkAnswer(1, '7/10', 'fase2')">DESBLOQUEAR PASTA</button>
+        <div id="err1" class="error"></div>
+    </div>
+
+    <!-- FASE 2 -->
+    <div id="fase2" class="screen">
+        <h2>Fase 2: O Risco dos Fundos</h2>
+        <p>O algoritmo do banco escolheu uma das duas carteiras de investimentos de forma aleatória (50% de chance para cada uma):</p>
+        <ul>
+            <li><strong>Fundo Alpha:</strong> 7 ativos de alto retorno e 3 de prejuízo.</li>
+            <li><strong>Fundo Beta:</strong> 2 ativos de alto retorno e 8 de prejuízo.</li>
+        </ul>
+        <p class="highlight"><strong>O Enigma:</strong> O relatório diário mostrou que o ativo sorteado gerou um <strong>alto retorno</strong>. Qual a probabilidade de ele ter vindo do <strong>Fundo Alpha</strong>? (Digite em fração simplificada).</p>
+        <input type="text" id="ans2" placeholder="Digite a fração ex: X/Y">
+        <button onclick="checkAnswer(2, '7/9', 'fase3')">ACESSAR TERMINAL</button>
+        <div id="err2" class="error"></div>
+    </div>
+
+    <!-- FASE 3 -->
+    <div id="fase3" class="screen">
+        <h2>Fase 3: Tendência das Ações</h2>
+        <p>A assinatura depende da análise das ações da empresa na Bolsa de Valores:</p>
+        <ul>
+            <li>20% dos dias de teste do app foram sob <strong>Alta Demanda</strong>.</li>
+            <li>Em dias de Alta Demanda, as ações fecharam em alta em 90% das vezes.</li>
+            <li>Nos dias de Demanda Normal, as ações fecharam em alta em apenas 30% das vezes.</li>
+        </ul>
+        <p class="highlight"><strong>O Enigma Final:</strong> O painel acaba de atualizar e mostra que as ações <strong>fecharam em alta</strong> hoje. Sabendo disso, qual é a probabilidade de hoje ter sido um dia de <strong>Alta Demanda</strong>? (Fração simplificada).</p>
+        <input type="text" id="ans3" placeholder="Digite a fração ex: X/Y">
+        <button onclick="checkAnswer(3, '3/7', 'victory')">ASSINAR CONTRATO FINAL</button>
+        <div id="err3" class="error"></div>
+    </div>
+
+    <!-- VITÓRIA -->
+    <div id="victory" class="screen">
+        <h2>🏆 CONTRATO ASSINADO!</h2>
+        <p>O cofre digital foi aberto com sucesso. Vocês realizaram o investimento no momento exato e a startup se tornou um sucesso global. O fundo de vocês faturou bilhões de reais!</p>
+        <p><strong>Parabéns! Vocês dominaram a Probabilidade Condicional!</strong></p>
+        <button onclick="location.reload()">JOGAR NOVAMENTE</button>
+    </div>
+</div>
+
+<script>
+    function nextScreen(screenId) {
+        document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+        document.getElementById(screenId).classList.add('active');
+    }
+
+    function checkAnswer(phase, correctAnswer, nextStep) {
+        let input = document.getElementById('ans' + phase).value.trim().replace(/\s+/g, '');
+        if (input === correctAnswer) {
+            nextScreen(nextStep);
+        } else {
+            document.getElementById('err' + phase).innerText = "Código Incorreto! O cofre continua trancado. Revise os cálculos do espaço amostral reduzido.";
+        }
+    }
+</script>
+</body>
+</html>
