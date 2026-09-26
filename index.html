@@ -3,163 +3,962 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Escape Room: O Tesouro do Capitão Barba-Negra</title>
+
+    <title>MatMov: A Maldição da Probabilidade Perdida</title>
+
     <style>
+        * {
+            box-sizing: border-box;
+        }
+
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background-color: #1a1105;
             color: #f4ebd0;
             margin: 0;
             padding: 20px;
+
             display: flex;
             justify-content: center;
             align-items: center;
+
             min-height: 100vh;
-            background-image: radial-gradient(circle, #2c1e0e 0%, #0e0a05 100%);
+
+            background-image:
+                radial-gradient(circle, #2c1e0e 0%, #0e0a05 100%);
         }
+
         .container {
             background-color: #2b1d0c;
             padding: 30px;
             border-radius: 12px;
-            box-shadow: 0 8px 24px rgba(0,0,0,0.8);
-            max-width: 600px;
+
+            box-shadow:
+                0 8px 24px rgba(0, 0, 0, 0.8);
+
+            max-width: 650px;
             width: 100%;
+
             border-top: 5px solid #d4a373;
         }
-        h1, h2 { color: #d4a373; text-align: center; font-family: 'Georgia', serif; }
-        .screen { display: none; }
-        .active { display: block; }
+
+        /* ==============================
+           CAPA
+        ============================== */
+
+        .capa {
+            width: 100%;
+            display: block;
+
+            border-radius: 10px;
+            margin-bottom: 20px;
+
+            box-shadow:
+                0 6px 18px rgba(0, 0, 0, 0.7);
+        }
+
+        /* ==============================
+           TÍTULOS
+        ============================== */
+
+        h1,
+        h2 {
+            color: #d4a373;
+            text-align: center;
+            font-family: Georgia, serif;
+        }
+
+        h2 {
+            margin-top: 10px;
+            margin-bottom: 20px;
+        }
+
+        p {
+            line-height: 1.6;
+        }
+
+        /* ==============================
+           TELAS
+        ============================== */
+
+        .screen {
+            display: none;
+        }
+
+        .active {
+            display: block;
+            animation: fadeIn 0.4s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* ==============================
+           TABELAS
+        ============================== */
+
         table {
             width: 100%;
             border-collapse: collapse;
-            margin: 15px 0;
+            margin: 20px 0;
+
             background-color: #3d2b1f;
+
+            border-radius: 8px;
+            overflow: hidden;
         }
-        th, td {
+
+        th,
+        td {
             border: 1px solid #1a1105;
             padding: 10px;
             text-align: center;
         }
-        th { background-color: #d4a373; color: #1a1105; }
-        input[type="text"] {
-            width: 100%;
-            padding: 12px;
-            margin: 15px 0;
-            border-radius: 6px;
-            border: 2px solid #d4a373;
-            background-color: #1a1105;
-            color: #f4ebd0;
-            font-size: 16px;
-            box-sizing: border-box;
-            text-align: center;
-        }
-        button {
-            width: 100%;
+
+        th {
             background-color: #d4a373;
             color: #1a1105;
+            font-weight: bold;
+        }
+
+        /* ==============================
+           INPUT
+        ============================== */
+
+        input[type="text"] {
+            width: 100%;
+
+            padding: 12px;
+            margin: 15px 0;
+
+            border-radius: 6px;
+            border: 2px solid #d4a373;
+
+            background-color: #1a1105;
+            color: #f4ebd0;
+
+            font-size: 16px;
+            text-align: center;
+        }
+
+        input[type="text"]:focus {
+            outline: none;
+
+            border-color: #e6b89c;
+
+            box-shadow:
+                0 0 8px rgba(212, 163, 115, 0.4);
+        }
+
+        /* ==============================
+           BOTÕES
+        ============================== */
+
+        button {
+            width: 100%;
+
+            background-color: #d4a373;
+            color: #1a1105;
+
             border: none;
             padding: 12px;
+
             font-size: 16px;
             font-weight: bold;
+
             border-radius: 6px;
             cursor: pointer;
+
             transition: 0.3s;
+
             text-transform: uppercase;
         }
-        button:hover { background-color: #e6b89c; }
-        .error { color: #ff595e; font-weight: bold; margin-top: 10px; text-align: center; }
-        .highlight { background-color: #3d2b1f; padding: 15px; border-left: 4px solid #d4a373; margin: 10px 0; border-radius: 0 6px 6px 0; }
-        ul { padding-left: 20px; }
-        li { margin-bottom: 8px; }
+
+        button:hover {
+            background-color: #e6b89c;
+            transform: translateY(-1px);
+        }
+
+        button:active {
+            transform: translateY(0);
+        }
+
+        /* ==============================
+           DESTAQUES
+        ============================== */
+
+        .highlight {
+            background-color: #3d2b1f;
+
+            padding: 15px;
+
+            border-left: 4px solid #d4a373;
+
+            margin: 15px 0;
+
+            border-radius: 0 6px 6px 0;
+
+            line-height: 1.6;
+        }
+
+        .questao {
+            background-color: #332417;
+            padding: 18px;
+
+            border: 1px solid #6b4a2f;
+            border-radius: 8px;
+
+            margin: 20px 0;
+        }
+
+        .questao-titulo {
+            color: #d4a373;
+            font-weight: bold;
+            font-family: Georgia, serif;
+            margin-bottom: 10px;
+        }
+
+        /* ==============================
+           LISTAS
+        ============================== */
+
+        ul {
+            padding-left: 25px;
+        }
+
+        li {
+            margin-bottom: 10px;
+            line-height: 1.5;
+        }
+
+        /* ==============================
+           ERROS
+        ============================== */
+
+        .error {
+            color: #ff595e;
+
+            font-weight: bold;
+
+            margin-top: 10px;
+
+            text-align: center;
+
+            min-height: 24px;
+        }
+
+        /* ==============================
+           VITÓRIA
+        ============================== */
+
+        .victory-icon {
+            font-size: 50px;
+            text-align: center;
+            margin-bottom: 10px;
+        }
+
+        .victory-message {
+            text-align: center;
+            line-height: 1.7;
+        }
+
+        /* ==============================
+           RODAPÉ
+        ============================== */
+
+        .footer {
+            margin-top: 25px;
+
+            text-align: center;
+
+            font-size: 12px;
+
+            color: #bca98d;
+
+            opacity: 0.8;
+        }
+
+        /* ==============================
+           CELULAR
+        ============================== */
+
+        @media (max-width: 600px) {
+
+            body {
+                padding: 10px;
+            }
+
+            .container {
+                padding: 20px;
+            }
+
+            th,
+            td {
+                padding: 7px;
+                font-size: 14px;
+            }
+
+            h2 {
+                font-size: 22px;
+            }
+        }
     </style>
 </head>
+
 <body>
 
 <div class="container">
-    <!-- TELA INICIAL -->
+
+    <!-- ==================================================
+         TELA INICIAL
+    ================================================== -->
+
     <div id="intro" class="screen active">
-        <h1>☠️ O Tesouro do Capitão Barba-Negra</h1>
-        <p><strong>Narrativa:</strong> Vocês são marujos a bordo do lendário navio pirata <em>Vingança da Rainha Ana</em>. Durante a madrugada, vocês conseguiram invadir os aposentos do Capitão Barba-Negra para roubar o mapa do tesouro mais valioso dos sete mares. Porém, o capitão acordou e trancou vocês na cabine! Ele ativou uma armadilha que vai inundar o convés em 30 minutos.</p>
-        <p>A única forma de abrir os cadeados da porta é decifrar as charadas de navegação que ele deixou escritas no diário de bordo. Usem a <strong>probabilidade condicional</strong> para salvar suas peles!</p>
-        <button onclick="nextScreen('fase1')">ABRIR O DIÁRIO DE BORDO</button>
+
+        <img
+            src="capa-matmov.png"
+            alt="MatMov: A Maldição da Probabilidade Perdida"
+            class="capa"
+        >
+
+        <p>
+            Há muitos anos, o Capitão Barba-Negra escondeu a
+            <strong>Probabilidade Perdida</strong>, um artefato
+            capaz de revelar as chances por trás dos acontecimentos.
+        </p>
+
+        <p>
+            Hoje, vocês, os
+            <strong>MatMarujos em Movimento</strong>,
+            encontram o navio <strong>Destino Incerto</strong>
+            e acabam presos a bordo.
+        </p>
+
+        <p>
+            Para encontrar a Probabilidade Perdida e escapar,
+            vocês precisarão solucionar
+            <strong>três enigmas</strong> deixados pelo capitão.
+        </p>
+
+        <div class="highlight">
+            <strong>Vocês têm 15 minutos.</strong>
+            <br><br>
+            A aventura começa agora.
+        </div>
+
+        <button onclick="nextScreen('fase1')">
+            ABRIR O DIÁRIO DE BARBA-NEGRA
+        </button>
+
+        <div class="footer">
+            MatMov — Matemática em Movimento
+        </div>
+
     </div>
 
-    <!-- FASE 1 -->
+
+    <!-- ==================================================
+         FASE 1
+    ================================================== -->
+
     <div id="fase1" class="screen">
-        <h2>Fase 1: O Teste das Bússolas Malditas</h2>
-        <p>O capitão comprou um lote de bússolas contrabandeadas. Algumas estão amaldiçoadas e apontam para a direção errada. O imediato testou 1.000 bússolas antes da viagem e anotou os dados nesta tabela:</p>
+
+        <h2>Fase 1: A Bússola Amaldiçoada</h2>
+
+        <p>
+            A primeira pista está escondida no antigo depósito
+            de instrumentos do navio.
+        </p>
+
+        <p>
+            Barba-Negra tentou lançar uma maldição sobre suas
+            bússolas. Quem pega uma bússola amaldiçoada precisa decifrar mais dois enigmas para encontrar o caminho de volta.
+        </p>
+
+        <p>
+            Mas havia um problema:
+            <strong>nem toda maldição pega.</strong>
+        </p>
+
+        <p>
+            Um MatMarujo estava em movimento testando as bússolas e acabou caindo no mar. Ele examinou
+            <strong>1.000 bússolas</strong> e registrou os resultados:
+        </p>
+
         <table>
-            <tr><th>Análise</th><th>Bússola Funciona</th><th>Bússola Amaldiçoada</th><th>Total</th></tr>
-            <tr><td>Marcada como Confiável</td><td>140</td><td>60</td><td>200</td></tr>
-            <tr><td>Marcada como Defeituosa</td><td>10</td><td>790</td><td>800</td></tr>
-            <tr><td>Total</td><td>150</td><td>850</td><td>1000</td></tr>
+
+            <tr>
+                <th>Tipo de bússola</th>
+                <th>Funcionando</th>
+                <th>Não funcionando</th>
+                <th>Total</th>
+            </tr>
+
+            <tr>
+                <td>
+                    <strong>Possui a maldição</strong>
+                </td>
+
+                <td>140</td>
+                <td>60</td>
+                <td>200</td>
+            </tr>
+
+            <tr>
+                <td>
+                    <strong>Não possui a maldição</strong>
+                </td>
+
+                <td>10</td>
+                <td>790</td>
+                <td>800</td>
+            </tr>
+
+            <tr>
+                <td><strong>Total</strong></td>
+                <td><strong>150</strong></td>
+                <td><strong>850</strong></td>
+                <td><strong>1000</strong></td>
+            </tr>
+
         </table>
-        <div class="highlight">
-            <strong>O Enigma do Capitão:</strong> "Eu peguei uma bússola da gaveta que havia sido <strong>Marcada como Confiável</strong> pelo teste. Qual é a probabilidade real de ela estar funcionando perfeitamente? Insira o código em fração simplificada (ex: 1/2) para abrir o primeiro cadeado."
+
+        <div class="questao">
+
+            <div class="questao-titulo">
+                PRIMEIRO ENIGMA DE BARBA-NEGRA
+            </div>
+
+            <p>
+                “Sabendo que a Maldição do Barba Negra garante que os MatMarujos pegarão bússolas com maldição!”
+            </p>
+
+            <p>
+                “Para seguir viagem, vocês deverão escolher
+                uma das <strong>200 bússolas que possuem a maldição</strong>.”
+            </p>
+
+            <p>
+                Se vocês escolherem uma bússola que
+                <strong>possui a maldição</strong>,
+                qual é a probabilidade de ela
+                <strong>estar funcionando</strong>?
+            </p>
+
+            <p>
+                Escrevam a resposta em forma de
+                <strong>fração</strong>.
+            </p>
+
+            <p>
+                <em>A fração não precisa estar simplificada.</em>
+            </p>
+
         </div>
-        <input type="text" id="ans1" placeholder="Digite a fração ex: X/Y">
-        <button onclick="checkAnswer(1, '7/10', 'fase2')">GIRAR A CHAVE</button>
+
+        <input
+            type="text"
+            id="ans1"
+            placeholder="Exemplo: x/y"
+            autocomplete="off"
+        >
+
+        <button onclick="checkAnswer(1, '7/10', 'fase2')">
+            ESCOLHER A BÚSSOLA
+        </button>
+
         <div id="err1" class="error"></div>
+
     </div>
 
-    <!-- FASE 2 -->
+
+    <!-- ==================================================
+         FASE 2
+    ================================================== -->
+
     <div id="fase2" class="screen">
+
         <h2>Fase 2: Os Baús da Ilha da Caveira</h2>
-        <p>Para passar pelo segundo portão da cabine, vocês precisam escolher o baú correto de moedas para subornar os guardas fantasmas. Barba-Negra escondeu as moedas em dois baús idênticos:</p>
+
+        <p>
+            A bússola aponta para uma pequena ilha próxima:
+            a <strong>Ilha da Caveira</strong>.
+        </p>
+
+        <p>
+            No centro da ilha, vocês encontram dois antigos
+            baús pertencentes a Barba-Negra.
+        </p>
+
+        <p>
+            Dentro deles estão:
+        </p>
+
         <ul>
-            <li><strong>Baú de Ferro:</strong> Contém 7 moedas de ouro legítimas e 3 moedas de chumbo falso.</li>
-            <li><strong>Baú de Bronze:</strong> Contém 2 moedas de ouro legítimas e 8 moedas de chumbo falso.</li>
+
+            <li>
+                <strong>Baú de Ferro:</strong>
+                7 moedas de ouro legítimas e
+                3 moedas de chumbo falso.
+            </li>
+
+            <li>
+                <strong>Baú de Bronze:</strong>
+                2 moedas de ouro legítimas e
+                8 moedas de chumbo falso.
+            </li>
+
         </ul>
-        <div class="highlight">
-            <strong>O Enigma do Capitão:</strong> "Eu escolhi um dos baús de olhos vendados (50% de chance para cada um) e puxei uma única moeda. Ela reluziu e revelou ser de <strong>ouro legítimo</strong>. Sabendo que a moeda é de ouro, qual é a probabilidade de ela ter saído especificamente do <strong>Baú de Ferro</strong>? Insira a fração simplificada."
+
+        <p>
+            Os dois baús têm a
+            <strong>mesma chance de serem escolhidos</strong>.
+        </p>
+
+        <p>
+            Vocês escolhem um deles ao acaso e retiram uma moeda.
+        </p>
+
+        <p>
+            A moeda reluz.
+            <strong>É ouro legítimo.</strong>
+        </p>
+
+        <div class="questao">
+
+            <div class="questao-titulo">
+                SEGUNDO ENIGMA DE BARBA-NEGRA
+            </div>
+
+            <p>
+                O diário traz uma nova mensagem:
+            </p>
+
+            <p>
+                “Agora vocês conhecem o resultado.
+                Conseguem descobrir de onde ele veio?”
+            </p>
+
+            <p>
+                Sabendo que a moeda retirada é de
+                <strong>ouro legítimo</strong>,
+                qual é a probabilidade de ela ter vindo
+                do <strong>Baú de Ferro</strong>?
+            </p>
+
+            <p>
+                Escrevam a resposta em forma de
+                <strong>fração</strong>.
+            </p>
+
+            <p>
+                <em>A fração não precisa estar simplificada.</em>
+            </p>
+
         </div>
-        <input type="text" id="ans2" placeholder="Digite a fração ex: X/Y">
-        <button onclick="checkAnswer(2, '7/9', 'fase3')">DESTRANCAR PORTÃO</button>
+
+        <input
+            type="text"
+            id="ans2"
+            placeholder="Exemplo: x/y"
+            autocomplete="off"
+        >
+
+        <button onclick="checkAnswer(2, '7/9', 'fase3')">
+            ABRIR O CAMINHO SECRETO
+        </button>
+
         <div id="err2" class="error"></div>
+
     </div>
 
-    <!-- FASE 3 -->
+
+    <!-- ==================================================
+         FASE 3
+    ================================================== -->
+
     <div id="fase3" class="screen">
-        <h2>Fase 3: A Rota de Fuga Contra a Maré</h2>
-        <p>Vocês chegaram à janela da cabine. Para pular no mar e nadar até o bote de fuga, vocês precisam calcular a chance de sobrevivência cruzando os dados das tempestades da região:</p>
+
+        <h2>Fase 3: A Rota Final</h2>
+
+        <p>
+            Dentro do Baú de Ferro vocês encontram a última parte
+            do mapa.
+        </p>
+
+        <p>
+            A <strong>Probabilidade Perdida</strong> de voltar par casa está em uma ilha
+            do outro lado do mar.
+        </p>
+
+        <p>
+            O mapa mostra que existem três formas de fazer
+            a travessia:
+        </p>
+
         <ul>
-            <li>20% dos dias de navegação na rota são feitos sob **Névoa Densa**.</li>
-            <li>Nos dias de **Névoa Densa**, os navios afundam em 90% das vezes ao bater nos recifes.</li>
-            <li>Nos dias de **Tempo Limpo**, os navios batem e afundam em apenas 30% das vezes.</li>
+
+            <li>
+                <strong>Navegando com vela</strong> —
+                é mais rápido, mas depende dos ventos.
+            </li>
+
+            <li>
+                <strong>Esperando as melhores ondas</strong> —
+                exige paciência até encontrar as condições certas.
+            </li>
+
+            <li>
+                <strong>Guiando-se pela Lua e remando</strong> —
+                é mais demorado e cansativo, mas é uma rota mais segura.
+            </li>
+
         </ul>
-        <div class="highlight">
-            <strong>O Enigma Final:</strong> "O vigia gritou lá do alto dizendo que viu um navio ao longe que **acabou de afundar** nos recifes. Sabendo que o navio afundou, qual é a probabilidade de que hoje tenha sido um dia de <strong>Névoa Densa</strong>? Insira a fração simplificada para que o bote de fuga seja liberado!"
+
+        <p>
+            O diário registra os resultados das últimas
+            <strong>100 expedições</strong>:
+        </p>
+
+        <table>
+
+            <tr>
+                <th>Estratégia</th>
+                <th>Expedições</th>
+                <th>Chegaram ao destino</th>
+            </tr>
+
+            <tr>
+                <td>
+                    <strong>Navegando com vela</strong>
+                </td>
+                <td>40</td>
+                <td>12</td>
+            </tr>
+
+            <tr>
+                <td>
+                    <strong>Esperando as melhores ondas</strong>
+                </td>
+                <td>40</td>
+                <td>12</td>
+            </tr>
+
+            <tr>
+                <td>
+                    <strong>Guiando-se pela Lua e remando</strong>
+                </td>
+                <td>20</td>
+                <td>18</td>
+            </tr>
+
+            <tr>
+                <td><strong>Total</strong></td>
+                <td><strong>100</strong></td>
+                <td><strong>42</strong></td>
+            </tr>
+
+        </table>
+
+        <div class="questao">
+
+            <div class="questao-titulo">
+                ENIGMA FINAL
+            </div>
+
+            <p>
+                Uma das expedições registradas no diário tinham
+                <strong> MatMarujos em extremo Movimento </strong> e conseguiu chegar ao destino.
+            </p>
+
+            <p>
+                Sabendo que a expedição chegou ao destino,
+                qual é a probabilidade de ela ter escolhido
+                a estratégia
+                <strong>“Guiando-se pela Lua e remando”</strong>?
+            </p>
+
+            <p>
+                Escrevam a resposta em forma de
+                <strong>fração</strong>.
+            </p>
+
+            <p>
+                <em>A fração não precisa estar simplificada.</em>
+            </p>
+
         </div>
-        <input type="text" id="ans3" placeholder="Digite a fração ex: X/Y">
-        <button onclick="checkAnswer(3, '3/7', 'victory')">PULAR NO MAR</button>
+
+        <input
+            type="text"
+            id="ans3"
+            placeholder="Exemplo: x/y"
+            autocomplete="off"
+        >
+
+        <button onclick="checkAnswer(3, '3/7', 'victory')">
+            ENCONTRAR A PROBABILIDADE PERDIDA
+        </button>
+
         <div id="err3" class="error"></div>
+
     </div>
 
-    <!-- VITÓRIA -->
+
+    <!-- ==================================================
+         VITÓRIA
+    ================================================== -->
+
     <div id="victory" class="screen">
-        <h2>🦜 LIBERDADE, MARUJOS!</h2>
-        <p>Ao inserir o código final <strong>3/7</strong>, a última tranca da janela se rompe. Vocês pulam no mar com o mapa do tesouro nas mãos exatamente no momento em que a cabine terminava de inundar.</p>
-        <p>Vocês remam para longe enquanto Barba-Negra grita furioso do convés. O tesouro agora pertence a vocês!</p>
-        <p><strong>Parabéns! Vocês usaram o espaço amostral reduzido para se tornarem os reis dos mares!</strong></p>
-        <button onclick="location.reload()">REJOGAR</button>
+
+        <div class="victory-icon">
+            🦜
+                    <img
+            src="capa-matmov.png"
+            alt="MatMov: A Maldição da Probabilidade Perdida"
+            class="capa"
+        >
+        </div>
+
+        <h2>
+            LIBERDADE,
+            <strong>MATMARUJOS EM MOVIMENTO!</strong>
+        </h2>
+
+        <div class="victory-message">
+
+            <p>
+                Vocês foram MatMarujos em Movimento incansáveis .
+            </p>
+
+            <p>
+                Seguindo pelo caminho mais provável voltaram para aula.
+            </p>
+
+            <div class="highlight">
+
+  
+
+            <div class="highlight">
+
+                <strong>
+                    PARABÉNS, MATMARUJOS EM MOVIMENTO!
+                </strong>
+
+                <p>
+                    Vocês resolveram os três enigmas,
+                    utilizaram a <strong>probabilidade condicional</strong>
+                    e encontraram a
+                    <strong>Probabilidade Perdida</strong>.
+                </p>
+
+                <p>
+                    O verdadeiro tesouro estava nas pistas.
+                </p>
+
+            </div>
+
+        </div>
+
+        <button onclick="location.reload()">
+            NAVEGAR NOVAMENTE
+        </button>
+
+        <div class="footer">
+            MatMov — Matemática em Movimento
+        </div>
+
     </div>
+
 </div>
 
-<script {nonce}>
+
+<script>
+
+    /* =========================================
+       MUDAR DE TELA
+    ========================================= */
+
     function nextScreen(screenId) {
-        document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
-        document.getElementById(screenId).classList.add('active');
+
+        document.querySelectorAll('.screen')
+            .forEach(screen => {
+                screen.classList.remove('active');
+            });
+
+        const next = document.getElementById(screenId);
+
+        if (next) {
+            next.classList.add('active');
+        }
+
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
     }
+
+
+    /* =========================================
+       LER UMA FRAÇÃO
+    ========================================= */
+
+    function lerFracao(texto) {
+
+        texto = texto
+            .trim()
+            .replace(/\s+/g, '');
+
+        const partes = texto.split('/');
+
+        if (partes.length !== 2) {
+            return null;
+        }
+
+        const numerador = Number(partes[0]);
+        const denominador = Number(partes[1]);
+
+        if (
+            !Number.isFinite(numerador) ||
+            !Number.isFinite(denominador) ||
+            denominador === 0
+        ) {
+            return null;
+        }
+
+        return {
+            numerador: numerador,
+            denominador: denominador
+        };
+    }
+
+
+    /* =========================================
+       VERIFICAR RESPOSTA
+    ========================================= */
 
     function checkAnswer(phase, correctAnswer, nextStep) {
-        let input = document.getElementById('ans' + phase).value.trim().replace(/\s+/g, '');
-        if (input === correctAnswer) {
+
+        const respostaAluno =
+            document.getElementById('ans' + phase).value;
+
+        const fracaoAluno =
+            lerFracao(respostaAluno);
+
+        const fracaoCorreta =
+            lerFracao(correctAnswer);
+
+        const errorElement =
+            document.getElementById('err' + phase);
+
+
+        /* Formato inválido */
+
+        if (fracaoAluno === null) {
+
+            errorElement.innerText =
+                'Digite sua resposta no formato de fração. Exemplo: x/y';
+
+            return;
+        }
+
+
+        /*
+            Comparação por multiplicação cruzada.
+
+            Isso permite aceitar frações equivalentes.
+
+            Exemplo:
+
+            18/42 e 3/7
+
+            18 × 7 = 126
+            42 × 3 = 126
+
+            Portanto, as duas representam
+            a mesma probabilidade.
+        */
+
+        const respostaCorreta =
+            fracaoAluno.numerador *
+            fracaoCorreta.denominador ===
+            fracaoCorreta.numerador *
+            fracaoAluno.denominador;
+
+
+        if (respostaCorreta) {
+
+            errorElement.innerText = '';
+
             nextScreen(nextStep);
+
         } else {
-            document.getElementById('err' + phase).innerText = "Cadeado Trancado! O código está errado. Lembre-se de usar apenas os casos que atendem à condição fornecida.";
+
+            errorElement.innerText =
+                'O código está errado. ' +
+                'Observe novamente a condição apresentada no enigma.';
         }
     }
+
+
+    /* =========================================
+       ENTER PARA ENVIAR
+    ========================================= */
+
+    document.getElementById('ans1')
+        .addEventListener('keydown', function(event) {
+
+            if (event.key === 'Enter') {
+
+                checkAnswer(
+                    1,
+                    '7/10',
+                    'fase2'
+                );
+            }
+
+        });
+
+
+    document.getElementById('ans2')
+        .addEventListener('keydown', function(event) {
+
+            if (event.key === 'Enter') {
+
+                checkAnswer(
+                    2,
+                    '7/9',
+                    'fase3'
+                );
+            }
+
+        });
+
+
+    document.getElementById('ans3')
+        .addEventListener('keydown', function(event) {
+
+            if (event.key === 'Enter') {
+
+                checkAnswer(
+                    3,
+                    '3/7',
+                    'victory'
+                );
+            }
+
+        });
+
 </script>
+
 </body>
 </html>
-
